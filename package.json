@@ -1,0 +1,37 @@
+{
+  "name": "uecfad--run",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "5.1.4",
+    "@types/react": "18.2.15",
+    "@types/react-dom": "18.2.7",
+    "allotment": "^1.19.2",
+    "antd": "^5.7.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "scripts": {
+    "start": "node ./start.js",
+    "build": "node ./build.js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "react-scripts": "latest",
+    "rewire": "^6.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

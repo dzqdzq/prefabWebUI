@@ -1,6 +1,10 @@
 function parseColor(value) {
-  const { r, g, b, a } = value;
-  return [r, g, b, a];
+  const { r, g, b} = value;
+  const string = '#' + [r, g, b].map((v) => {
+    const hex = v.toString(16);
+    return hex.length === 1 ? '0' + hex : hex;
+  }).join('');
+  return { r, g, b, string };
 }
 
 function parseVec2(value) {

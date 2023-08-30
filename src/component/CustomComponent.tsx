@@ -3,7 +3,7 @@ import { Input, Row, Col } from 'antd';
 import { getAnyName } from '@/utils/utils.js';
 
 interface CustomComponentProps {
-  compData: any;
+  compData: object;
 }
 
 const filterKeys = {
@@ -45,7 +45,7 @@ function createConOne(conItem, span = 16, key) {
 }
 
 function createConArr(conItem, span = 16, key) {
-  let title = '';
+  const title = '';
   // if (conItem) {
   //   if (conItem.hasOwnProperty('__id__')) {
   //     const realCompData = conItem ? PrefabData[conItem.__id__] : null;
@@ -74,7 +74,7 @@ const CustomComponent: React.FC<CustomComponentProps> = (
 ) => {
   const { compData } = props;
   const comps = [];
-  for (let key in compData) {
+  for (const key in compData) {
     if (!filterKeys[key]) {
       if (Array.isArray(compData[key])) {
         comps.push(createConArr(compData[key], 16, key));

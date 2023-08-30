@@ -1,3 +1,9 @@
-.ant-tree-indent-unit {
-    width: 12px !important;
+.ant-tree-switcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.my-tree .ant-tree-switcher-icon {
+    font-size: 18px !important;
 }

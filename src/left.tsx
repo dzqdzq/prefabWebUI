@@ -1,13 +1,16 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Input, Layout, Tree } from 'antd';
 import type { DataNode, TreeProps } from 'antd/es/tree';
-import './index.css';
 import { walk, convertPrefabToNodeTree } from './utils/parse';
 
 const { Search } = Input;
 
+type OnSelectType = TreeProps['onSelect'];
+
+type SelectInfoType = Parameters<OnSelectType>[1];
+
 interface LeftProps {
-  onSelect: TreeProps['onSelect'];
+  onSelect: OnSelectType;
 }
 
 const Left: React.FC<LeftProps> = (props: LeftProps) => {
@@ -42,10 +45,9 @@ const Left: React.FC<LeftProps> = (props: LeftProps) => {
     // setTreeData(filterTreeData(treeData));
   };
 
-  const onSelect: TreeProps['onSelect'] = (keys, info: { node }) => {
+  const onSelect: OnSelectType = (keys, info: SelectInfoType) => {
     if (keys.length === 0) return;
     setSelectedKeys(keys);
-    // @ts-ignore
     props.onSelect(keys, info);
   };
 
@@ -82,42 +84,41 @@ const Left: React.FC<LeftProps> = (props: LeftProps) => {
         window.PrefabData = data;
         setTreeData([root]);
         setExpandedKeys(keys);
-        const simulateInfo = {
+        const simulateInfo:SelectInfoType  = {
           node: root,
           selected: true,
           selectedNodes: [root],
+          nativeEvent: null,
+          event: 'select',
         };
 
-        // @ts-ignore
         onSelect([root.key], simulateInfo);
       });
   }, []);
 
-  // useEffect(() => {
-  //   console.log('dzq');
-  // }, [selectedKeys]);
-
   return (
-    <Layout>
+    <div>
       <Search placeholder='Search' onChange={onChange} />
-      <Tree
-        style={{
+      {treeData.length && <Tree
+         style={{
           marginTop: 10,
           marginBottom: 10,
           whiteSpace: 'nowrap',
           overflow: 'auto',
+          height: 'calc(100vh - 60px)',
         }}
+        className="my-tree"
         // autoExpandParent={true}
         // defaultExpandParent={true}
-        // defaultExpandAll={true}
+        defaultExpandAll
         onSelect={onSelect}
         onExpand={onExpand}
-        expandedKeys={expandedKeys}
+        // expandedKeys={expandedKeys}
         selectedKeys={selectedKeys}
         // selectable
         treeData={treeData}
-      />
-    </Layout>
+      />}
+    </div>
   );
 };
 

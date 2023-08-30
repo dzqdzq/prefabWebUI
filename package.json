@@ -6,8 +6,12 @@
     "@ant-design/icons": "5.1.4",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
-    "allotment": "^1.19.2",
-    "antd": "^5.7.3",
+    "@vscode/webview-ui-toolkit": "^1.2.2",
+    "allotment": "^1.19.3",
+    "antd": "^5.9.2",
+    "chroma-js": "^2.4.2",
+    "fire-path": "^0.1.9",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -18,7 +22,16 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "prettier": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.0.2",
     "react-scripts": "latest",
     "rewire": "^6.0.0"
   },

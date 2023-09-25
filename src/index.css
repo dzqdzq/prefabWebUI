@@ -7,3 +7,7 @@
 .my-tree .ant-tree-switcher-icon {
     font-size: 18px !important;
 }
+
+.ant-descriptions-item-label {
+  width: 100px;
+}

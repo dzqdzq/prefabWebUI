@@ -6,7 +6,6 @@
     "@ant-design/icons": "5.1.4",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
-    "@vscode/webview-ui-toolkit": "^1.2.2",
     "allotment": "^1.19.3",
     "antd": "^5.9.2",
     "chroma-js": "^2.4.2",

@@ -9,10 +9,11 @@ const theme2 = {
   algorithm: theme.darkAlgorithm,
 };
 
+
 const root = document.getElementById("container");
 root.style.backgroundColor = "#000";
 createRoot(root).render(
-  <ConfigProvider theme={theme2}>
+  <ConfigProvider theme={theme2} componentSize={"small"}>
     <App />
   </ConfigProvider>
 );

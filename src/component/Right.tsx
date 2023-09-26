@@ -114,7 +114,6 @@ const Right = ({ node, onIdClick }) => {
       activeKey={activeKey}
       items={items}
       bordered={false}
-      size="small"
       onChange={handlePanelChange}
     />
   );

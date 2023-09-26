@@ -1,6 +1,7 @@
 import React, { useState, useImperativeHandle, forwardRef, useEffect } from "react";
 import { Input, Layout, Tree } from "antd";
 import type { DataNode, TreeProps } from "antd/es/tree";
+import {walk} from '../utils/prefab.mjs';
 
 const { Search } = Input;
 
@@ -15,7 +16,6 @@ interface LeftProps {
 
 const Left = forwardRef((props: LeftProps, ref) => {
   const [treeData, setTreeData] = React.useState<DataNode[]>(props.treeData);
-  const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([]);
   const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([]);
   const [searchValue, setSearchValue] = useState("");
 
@@ -38,7 +38,6 @@ const Left = forwardRef((props: LeftProps, ref) => {
   
   const onSelect: OnSelectType = (keys, info: SelectInfoType) => {
     if (keys.length === 0) return;
-    setSelectedKeys(keys);
     props.onSelect(keys, info);
   }; // end onSelect
 
@@ -51,12 +50,10 @@ const Left = forwardRef((props: LeftProps, ref) => {
       if (node && !node.style) {
         node.style = { backgroundColor: "blue" };
 
-        // setSelectedKeys(window.PrefabData.getAllParentKey(node));
-        // 如果tree item 不在可视区域内，需要滚动到可视区域内
-        const dom = document.querySelector(`.my-tree li[data-key="${node.key}"]`);
-        if(dom){
-          dom.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
+        // 所有的父节点展开
+        const parentKeys = window.PrefabData.getAllParentKey(window.PrefabData.getNodeFromId(id));
+        setExpandedKeys(Array.from(new Set(parentKeys.concat(expandedKeys))));
+
         setTimeout(() => {
           delete node.style;
           setTreeData([...treeData]);
@@ -68,6 +65,13 @@ const Left = forwardRef((props: LeftProps, ref) => {
 
   useEffect(() => {
     setTreeData(props.treeData);
+    if(props.treeData && props.treeData.length){
+      const keys = [];
+      walk(props.treeData[0], (node) => {
+        keys.push(node.key);
+      });
+      setExpandedKeys(keys);
+    }
   }, [props.treeData]);
 
   useImperativeHandle(ref, () => ({
@@ -78,14 +82,14 @@ const Left = forwardRef((props: LeftProps, ref) => {
     expandedKeysValue: React.Key[],
     info
   ) => {
-    // console.log("onExpand", expandedKeysValue, info);
-    // setExpandedKeys([...expandedKeysValue]);
+    setExpandedKeys(expandedKeysValue);
   };
 
   if (!treeData.length) {
     return <div></div>;
   }
 
+  console.log('dddd')
   return (
     <div>
       <Search placeholder="Search" onChange={onChange} />
@@ -97,14 +101,10 @@ const Left = forwardRef((props: LeftProps, ref) => {
           overflow: "auto",
           height: "calc(100vh - 60px)",
         }}
-        autoExpandParent
-        defaultExpandParent
         className="my-tree"
-        defaultExpandAll
         onSelect={onSelect}
         onExpand={onExpand}
-        // expandedKeys={expandedKeys}
-        selectedKeys={selectedKeys}
+        expandedKeys={expandedKeys}
         treeData={treeData}
       />
     </div>

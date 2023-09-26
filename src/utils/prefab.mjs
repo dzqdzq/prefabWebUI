@@ -2,7 +2,7 @@ import parseNode from './parse.mjs';
 
 const id = (data) => data?.__id__;
 
-function walk(node, cb) {
+export function walk(node, cb) {
     cb(node);
     node.children.forEach((child) => {walk(child, cb);});
 }

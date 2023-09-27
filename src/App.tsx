@@ -40,10 +40,10 @@ const App: React.FC = () => {
 
   return (
     <Allotment proportionalLayout>
-      <Allotment.Pane minSize={200} maxSize={400} preferredSize={300}>
+      <Allotment.Pane minSize={200} maxSize={250} preferredSize={200}>
         <Left ref={leftRef} treeData={treeData} onSelect={onSelectNode} />
       </Allotment.Pane>
-      <Allotment.Pane minSize={200}>
+      <Allotment.Pane minSize={300}>
         <Right node={node} onIdClick={handleIdClick} />
       </Allotment.Pane>
     </Allotment>

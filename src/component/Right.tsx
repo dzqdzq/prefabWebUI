@@ -1,5 +1,6 @@
-import React, { useMemo, useState, useEffect, useCallback } from "react";
-import { Checkbox, Descriptions, Collapse } from "antd";
+import React, { useState, useEffect, useCallback } from "react";
+import { Checkbox, ColorPicker, Descriptions, Collapse } from "antd";
+import Text from "./Text";
 
 interface DataItem {
   __id__?: number;
@@ -26,11 +27,24 @@ const IdList: React.FC<Props> = ({ data, onIdClick }) => {
     <div>
       {data.map((item) => (
         item.__id__ ? ( <a key={item.__id__} onClick={() => handleIdClick(item.__id__)}>
-          {`__id__:${item.__id__ }`}
+          {` id:${item.__id__ }`}
         </a>) : JSON.stringify(item)
       ))}
     </div>
   );
+};
+
+const ignoreKeys = {
+  _id: true,
+  _name: true,
+  _objFlags: true,
+  _parent: true,
+  _enabled: true,
+  __type__: true,
+  _srcBlendFactor: true,
+  _dstBlendFactor: true,
+  _N$String: true,
+  _N$file: true,
 };
 
 const Right = ({ node, onIdClick }) => {
@@ -47,17 +61,26 @@ const Right = ({ node, onIdClick }) => {
   const getReactJson = useCallback((data) => {
     const items = [];
     Object.entries(data).forEach(([key, value]) => {
-      if (key === "_id") {
+      if (ignoreKeys[key]) {
         return;
       }
+
+      let children;
+      // @ts-ignore
+      if(value && value.string && typeof value.r === 'number'){
+        // @ts-ignore
+        children = <ColorPicker size="small" value={value.string} showText disabled/>;
+      }else{
+        children = typeof value == "object" ? <IdList data={value} onIdClick={onIdClick}/> : String(value);
+      }
+
       items.push({
         key,
-        label: key,
-        children:
-          typeof value == "object" ? <IdList data={value} onIdClick={onIdClick}/> : String(value),
+        label: <Text ellipsis>{key}</Text>,
+        children,
       });
     });
-    return <Descriptions bordered column={2} colon items={items} />;
+    return <Descriptions column={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1 }} items={items} />;
   }, [onIdClick]);
 
   const handlePanelChange = (key: string | string[]) => {

@@ -89,17 +89,17 @@ const Left = forwardRef((props: LeftProps, ref) => {
     return <div></div>;
   }
 
-  console.log('dddd')
   return (
     <div>
       <Search placeholder="Search" onChange={onChange} />
       <Tree
         style={{
           marginTop: 10,
-          marginBottom: 10,
+          marginBottom: 0,
+          paddingBottom: 20,
           whiteSpace: "nowrap",
           overflow: "auto",
-          height: "calc(100vh - 60px)",
+          height: "calc(100vh - 37px)",
         }}
         className="my-tree"
         onSelect={onSelect}

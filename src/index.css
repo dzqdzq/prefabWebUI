@@ -1,15 +1,23 @@
+.ant-tree-indent-unit {
+  width: 10px !important;
+}
+
 .ant-tree-switcher {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.ant-tree .ant-tree-treenode {
+  padding: 0px 0px !important;
+}
+
 .my-tree .ant-tree-switcher-icon {
-    font-size: 18px !important;
+  font-size: 14px !important;
 }
 
 .ant-descriptions-item-label {
-  width: 100px;
+  width: 40% !important;
 }
 
 ::-webkit-scrollbar {
